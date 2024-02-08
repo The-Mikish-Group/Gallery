@@ -1,0 +1,515 @@
+/* #region Default Stuff */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-y: scroll;
+    padding: 0;
+    margin: 0;   
+    
+    line-height: 1.4;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: 'Comic Sans MS', sans-serif;
+    font: 0.85em/1.35em 'Comic Sans MS', cursive, sans-serif;
+    text-rendering: optimizeLegibility;   
+  
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+    background: repeat url(../../Pages/images/body_bg.png);
+    color: #f2f2f2;
+}
+
+/* Background Top Gradient */
+#projector {
+    background: url(images/projector/projector.png) no-repeat center;
+    left: 1px;
+    bottom: 324px;
+    width: 100%;
+    height: 192px;
+    display: none;
+    position: fixed;
+    z-index: 50;
+}
+
+#top_grad {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 102%;
+    z-index: 0;
+    height: 171px;
+    background: repeat-x url(../../Pages/images/body_top_grad.png);
+}
+
+html > body #top_grad {
+    width: 100%;
+}
+
+/* Nav Bar  and footer */
+header {
+    position: relative;
+    top: 0;
+    width: 100%;
+}
+
+.navbar-overhang {
+            position: absolute;
+            top: 15px;
+            transform: translateY(-10%);
+        }
+
+html > body header {
+    width: 100%;
+}
+
+
+/* Set for Auto Push Footer*/
+#MainContainer {
+    flex: 1;
+    min-height: 100%;
+}
+
+#footer {
+    padding: 0px;
+    position: inherit;
+}
+
+/* don't like padding and margins on elements by default */
+container, div, h1, h2, h3, h4, h5, p {
+    cursor: default;
+    padding: 0;
+    margin: 0;
+}
+
+/* make everything a borderbox */
+* {
+    box-sizing: border-box;
+}
+
+/* Cursors */
+.cursor {
+    cursor: url(http://www.icon100.com/up/3772/128/425-hand-pointer.png), auto;
+}
+.no-cursor {
+    cursor: none;
+}
+.pointer-cursor {
+    cursor: pointer;
+}
+
+/**********************/
+/* Responsive */
+
+svg, #container {
+    height: 100%;
+    width: 100%;
+}
+
+.btn {
+    transition: 1s ease-in-out;
+}
+
+img {
+    cursor: pointer;
+    transition: border 0.3s ease-in-out;
+}
+
+/* #endregion */
+
+/* #region Change all the items to be the font of our choice */
+body,
+a:link,
+a:visited,
+#pageHeader h1,
+pageHeader h2,
+#sidebarContainer
+.sideHeader,
+#footer
+a:link,
+#footer
+a:visited,
+#navcontainer
+a,
+h1,
+h2,
+h3,
+h4,
+.viewContainer {
+    font-family: "Comic Sans MS" !important;
+}
+/* #endregion */
+
+/* #region Menu */
+.menu-item {
+    min-width: 128px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.menu-link {
+    text-decoration: none;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: color 0.3s ease, border-color 0.3s ease, font-weight 0.3s ease;
+    padding: 8px;
+    display: inline-block;
+}
+
+    .menu-link:hover {
+        color: black !important;
+        font-weight: bold !important;
+    }
+
+    .menu-link.selected {
+        font-weight: bold !important;
+    }
+
+.border-link {
+    text-decoration: none;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: color 0.3s ease, border-color 0.3s ease, font-weight 0.3s ease;
+    padding: 8px;
+    display: inline-block;
+    border-color: Black !important;
+}
+
+    .border-link:hover {
+        color: black !important;
+        border-color: black !important;
+        font-weight: bold !important;
+    }
+
+    .border-link.selected {
+        font-weight: bold !important;
+    }
+/* #endregion */
+
+/* #region Theme */
+/*
+header {
+    position: inherit;
+    top: 0;
+}*/
+
+.viewContainer {
+    position: relative;
+    top: 50px;
+    line-height: 1.4;
+    margin-left: auto;
+    margin-right: auto;
+    border-top: 10px solid darkgoldenrod;
+    background-image: url(../../images/blackboard.png);
+    background-size: cover;
+    border-bottom: 40px solid darkgoldenrod;
+    border-left: 3px solid darkgoldenrod;
+    border-right: 3px solid darkgoldenrod;
+    border-radius: 12px;  
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+#projector {
+    width: 100%;
+    height: 192px;
+    display: none;
+    position: absolute;
+    bottom: 268px;
+    background: url(../../images/projector/projector.png) no-repeat center;
+}
+
+#eraser {
+    width: 113px;
+    height: 34px;
+    position: relative;
+    left: 230px;
+    top: -10px;
+    display: block;
+    background: no-repeat url(../../images/eraser.png);
+}
+
+#chalk {
+    width: 99px;
+    height: 14px;
+    position: relative;
+    left: 50px;
+    top: 20px;
+    display: block;
+    background: url(../../images/chalk.png) no-repeat;
+}
+
+#ruler {
+    width: 28px;
+    height: 415px;
+    position: relative;
+    left: 860px;
+    top: -428px;
+    display: none;
+    background: url(../../images/ruler.png) no-repeat;
+}
+
+#groove {
+    width: 100%;
+    height: 17px;
+    position: relative;
+    left: 0px;
+    top: 28px;
+    border-radius: 5px;
+    display: block;
+    background-color: #f4e8c2;
+    border-top: 2px solid #735d07;
+    border-bottom: 5px solid #735d07
+}
+    /* #endregion */
+
+/* #region Show Top/Bottom */
+.show-at-top {
+    display: none;
+}
+
+.show-at-bottom {
+    display: inline;
+}
+/* #endregion */
+
+/* #region (BS -sm- ) (min-width: 575px) and (max-width: 768px) Small tablet styles */
+@media (min-width: 575px) and (max-width: 768px) {
+
+    /* #region Theme Images */
+    .viewContainer {
+        border-right: 5px solid darkgoldenrod;
+        border-left: 5px solid darkgoldenrod;
+    }
+
+    #top_grad {
+        position: absolute;
+        top: 50px;
+        left: 0;
+        display: block;
+        width: 102%;
+        height: 171px;
+        background: repeat-x url(../../images/body_top_grad.png);
+    }
+
+    html > body #top_grad {
+        width: 100%;
+    }
+
+    #projector {        
+        bottom: 268px;        
+        display: none;        
+    }
+
+    #eraser {
+        left: 288px;
+    }
+
+    /* #endregion */
+
+    /* #region Show Top/Bottom */
+    .show-top {
+        display: none;
+    }
+
+    .show-bottom {
+        display: inline;
+    }
+    /* #endregion */
+
+}
+
+/* (BS -md- ) (min-width: 768.01px) and (max-width: 991px) Large tablet styles */
+@media (min-width: 768.01px) and (max-width: 991px) {
+
+    /* #region Theme Images */
+
+    .viewContainer {
+        border-right: 16px solid darkgoldenrod;
+        border-left: 16px solid darkgoldenrod;
+    }
+
+    #top_grad {
+        position: absolute;
+        top: 50px;
+        left: 0;
+        display: block;
+        width: 102%;
+        height: 171px;
+        background: repeat-x url(../../images/body_top_grad.png);
+    }
+
+    html > body #top_grad {
+        width: 100%;
+    }
+
+    #projector {
+        bottom: 342px;        
+    }
+    html > body #projector { /* Here it is! */
+        display: block;
+    }
+
+    #eraser {
+        left: 384px;
+    }
+
+    /* #endregion */
+
+    /* #region Show Top/Bottom */
+    .show-top {
+        display: none;
+    }
+
+    .show-bottom {
+        display: inline;
+    }
+    /* #endregion */
+
+}
+
+/* (BS -lg- ) (min-width: 992px) Start of Desktop */
+@media (min-width: 992px) {
+
+    /* #region Theme Images */
+
+    .viewContainer {
+        border-right: 16px solid darkgoldenrod;
+        border-left: 16px solid darkgoldenrod;
+    }
+
+    #projector {
+        bottom: 309px;
+        display: block;
+    }
+
+    #eraser {
+        left: 590px;
+    }
+
+    #chalk {
+        left: 224px;
+    }
+
+    #ruler {
+        left: 838px;
+        display: block;
+    }
+
+    /* #endregion */
+
+    /* #region Show Top/Bottom */
+    .show-top {
+        display: none;
+    }
+
+    .show-bottom {
+        display: none;
+    }
+    /* #endregion */
+
+}
+
+/* #region (min-width: 1200px) */
+@media (min-width: 1200px) {
+
+    /* #region Themes */
+
+    .viewContainer {
+        border-right: 16px solid darkgoldenrod;
+        border-left: 16px solid darkgoldenrod;
+    }    
+
+    #eraser {
+        left: 640px;
+    }
+
+  
+
+    #ruler {
+        left: 838px;
+    }
+
+    /* #endregion */
+
+    /* #region Show Top/Bottom */
+    .show-top {
+        display: none;
+    }
+
+    .show-bottom {
+        display: none;
+    }
+    /* #endregion */
+
+}
+
+/* #region (min-width: 1400px) */
+@media (min-width: 1400px) {
+
+    /* #region Themes */
+
+    .viewContainer {
+        border-right: 16px solid darkgoldenrod;
+        border-left: 16px solid darkgoldenrod;
+    }    
+
+    #eraser {
+        left: 886px;
+    }
+
+   
+
+    #ruler {
+        left: 1080px;
+    }
+
+    /* #endregion*/
+
+    /* #region Show Top/Bottom */
+    .show-top {
+        display: none;
+    }
+
+    .show-bottom {
+        display: none;
+    }
+    /* #endregion*/
+}
+
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    display: none;
+}
+
+.loading-spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

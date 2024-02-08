@@ -1,0 +1,108 @@
+﻿<!-- Shared/Index.cshtml -->
+@{
+    var galleriesFolder = "Gallery";
+
+    // Current Controller
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "Shared";
+    
+    // Image Folder
+    var imagefolder = ViewData["ViewName"]?.ToString() ?? ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+    
+    // galleryFolder    
+    var galleryFolder = currentController.Replace("slide", "", StringComparison.OrdinalIgnoreCase)
+                                         .Replace("combo", "", StringComparison.OrdinalIgnoreCase);
+    // galleryType
+    var galleryType = currentController.Contains("slide", StringComparison.OrdinalIgnoreCase) ? "Slideshows" :
+                      currentController.Contains("combo", StringComparison.OrdinalIgnoreCase) ? "Galleries" : "Galleries"; // Say Gallerys in Heading instead of Combos ie "Combos" : "Galleries"; 
+    galleryType ??= "Galleries"; // default - handle null
+    
+    // folders
+    var foldersPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/{galleriesFolder}/{galleryFolder}");
+    var folders = Directory.GetDirectories(foldersPath)
+                          .Where(folder => !System.IO.Path.GetFileName(folder).StartsWith("_"))
+                          .Select(folder => System.IO.Path.GetFileName(folder))
+                          .ToList();
+
+    var backgroundImage = $"{galleriesFolder}/{galleryFolder}/background.webp";
+    var imageExtensions = new[] { ".jpg", ".png", ".webp", ".svg" };
+    foreach (var extension in imageExtensions)
+    {
+        var imagePath = $"{galleriesFolder}/{galleryFolder}/background{extension}";
+        if (System.IO.File.Exists(System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", imagePath)))
+        {
+            backgroundImage = imagePath;
+            break;
+        }
+    }
+}
+
+<!-- View Container Row -->
+<div class="row viewContainer">
+
+    <!-- Menu Column -->
+    <div class="col-12 text-start pt-4">
+    
+        <!-- Content Row -->
+        <div class="row">
+
+            <!-- Heading Column (full width) -->
+            <div class="col-12 text-center">
+                <h2 class="text-white">@galleryType</h2>
+
+                <br />
+                <br />
+                <br />
+
+            </div>
+
+            <!-- Back Link Button -->
+            <div class="col-2 text-end my-0 mx-auto">
+                <div class="d-block">
+                    <a id="Back" class="chalk-link fs-6" href="https://KelvynPark68.com">Back</a>
+                </div>
+            </div>
+
+            <!-- Gallery Links -->
+            <div class="col-10 text-center my-0 mx-auto" style="width:260px;">
+
+                <!-- Folder Links -->
+                <div class="row">
+                    @foreach (var folder in folders)
+                    {
+                        <dir id="@folder" class="col-6 mt-0 text-start">
+                            <a id="@folder-link" class="chalk-link fs-6" asp-controller="@currentController" asp-action="Gallery" asp-route-viewName="@folder">@folder</a>
+                        </dir>
+                    }
+                </div>
+
+            </div>
+
+        </div>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+    </div>
+
+    <div id="groove"></div>  
+</div>
+
+<div id="chalk"></div>
+<div id="eraser"></div>
+
+<script>
+
+    var mainElement = document.getElementById("@imagefolder");
+    mainElement.style.pointerEvents = 'none';
+
+    var secondaryElement = document.getElementById("@imagefolder-link");
+    if (secondaryElement.classList.contains("chalk-link")) {
+        secondaryElement.classList.remove("chalk-link");
+        secondaryElement.classList.add("chalk-link-selected");
+    }
+
+</script>

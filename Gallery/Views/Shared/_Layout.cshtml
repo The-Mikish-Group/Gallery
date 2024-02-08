@@ -1,0 +1,369 @@
+﻿@{
+    // This Site
+    string siteURL = "http://Gallery.KelvynPark68.com/";
+
+    // Set Site Name
+    string siteName = "Kelvyn Park Class of 1968";
+
+    // Short name appears in Nav Bar at top on Phones... Can be longer like "Avon Park Nazarene" or "Avon Park Naz"
+    string siteNameShort = "KPHS - 68";
+
+    // Overall Organization
+    string siteOrganization = "KPHS68";
+
+    // Set default values
+    string pageTitle = ViewBag.Message + " | " + siteNameShort;
+    string description = "WELCOME! to the website of Kelvyn Park High School 1968 graduating class and friends.";
+    string folder = "";
+
+    //Share Image and ShareImage folder
+    // string shareImage = "kphsLogo.png";
+    // string shareImageFolder = "http://gallery.kelvynpark68.com/gallery/_siteimages/kphsLogo.png";
+    // string imageWidth = "1200";
+    // string imageHeight = "630";
+
+    // Page Share Settings - (shows on "PageShare" card when a link is shared)
+    string ogSite_Name = siteOrganization;
+    string ogTitle = pageTitle;
+    string ogDescription = description;
+    string ogURL = siteURL + folder;
+    string canonical = siteURL + folder;
+
+    string ogImage = "http://gallery.kelvynpark68.com/gallery/_siteimages/kphsLogo.png";
+    string ogImageWidth = "1200";
+    string ogImageHeight = "630";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Site Name -->
+    <title>@pageTitle</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="@description" />
+    <link rel="canonical" href="@canonical" />
+
+    <!-- Google Site Verification -->
+    @* <meta name="google-site-verification" content="wdaytYpXJY1e9iWkOJXCS6HBuc0aCDxz--VJTfwTT3E" /> *@
+
+    <!-- FavIcon(s) - (all your Logo... plenty of them!) -->
+    <link rel="icon" type="image/x-icon" href="~/lib/icons/favicon.ico" sizes="64x64" />
+    <link rel="icon" type="image/png" href="~/lib/icons/favicon_small.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="~/lib/icons/favicon_medium.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="~/lib/icons/favicon_large.png" sizes="64x64" />
+    <link rel="apple-touch-icon" sizes="152x152" href="~/lib/icons/small.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="~/lib/icons/medium.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="~/Gallery/_siteImages/kphsLogo.png" />
+
+    <!-- Default FB App ID unused -->
+    <meta property="fb:app_id" content="966242223397117" />
+
+    <!-- Link Share Setup -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content="@ogTitle" />
+    <meta property="og:determiner" content="The" />
+    <meta property="og:description" content="@ogDescription" />
+    <meta property="og:site_name" content="@ogSite_Name" />
+    <meta property="og:url" content="@ogURL" />
+    <meta property="og:image:url" content="@ogImage" />
+    <meta property="og:image:alt" content="Logo Image" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content=@ogImageWidth />
+    <meta property="og:image:height" content=@ogImageHeight />
+
+    <!-- Twitter Link Share Setup -->
+    <meta name="twitter:card" content="photo" />
+    <meta name="twitter:title" content="@ogTitle" />
+    <meta name="twitter:image" content="@ogImage" />
+    <meta name="twitter:image:width" content=@ogImageWidth />
+    <meta name="twitter:image:height" content=@ogImageHeight />
+
+    <!-- Bootstrap and JQuery (Local) -->
+    @* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@
+    @* <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" /> *@
+    @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
+
+    <!-- Bootstrap and JQuery (Web) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!-- CSS Link Setup -->
+    <link rel="stylesheet" href="~/lib/css/colors.css" />
+    <link rel="stylesheet" href="~/lib/css/fontsize.css" />
+    <link rel="stylesheet" href="~/lib/css/mycards.css" />
+    <link rel="stylesheet" href="~/lib/css/sizes.css" />
+    <link rel="stylesheet" href="~/lib/css/spacing.css" />
+    <link rel="stylesheet" href="~/lib/css/site.css" />
+
+    <!-- Site.js -->
+    <script type="text/javascript" src="~/lib/js/site.js" asp-append-version="true"></script>
+
+</head>
+<body>    
+
+    <div id="top_grad"></div>
+
+    <!-- Top Header Navbar Menu -->
+  @*   <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-0 position-relative ">
+            <div class="d-flex flex-grow-1">
+
+                <!-- Set to show on lg -->
+                <a href="https://kelvynpark68.com"><img src="~/Gallery/_siteImages/kphsLogo.png" class="navbar-overhang logo" alt="logo" /></a>
+
+                <a style="text-decoration: none" class="nav-text nav-text-fs text-green-darker d-none d-lg-inline-block siteNameBig" href="https://kelvynpark68.com">@siteName</a>-->
+
+                <!-- Set to show on sm -->
+                <a style="text-decoration: none" class="nav-text text-decoration-none navbar-brand navbar-text nav-text-fs text-green-darker d-lg-none d-inline-block w-100 text-center me-0 ps-5 siteNameSmall" href="https://kelvynpark68.com">@siteNameShort<img alt="" class="navbar-overhang logo px-2 pb-2" /></a>-->
+
+                <!-- Toggle Button -->
+                <div class="text-left pe-2 pt-1">
+                    <button class="navbar-toggler pe-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Selection Choices -->
+            <div class="collapse navbar-collapse flex-grow-1 text-right px-2" id="navbarToggler">
+            <ul class="ps-4 navbar-nav ms-auto flex-nowrap">*@
+
+                    @* <!-- Home -->
+                    <li class="nav-item">
+                    <a class="nav-link nav-link-fs" href="/">Home</a>
+                    </li> *@
+
+                    @*<!-- Check-in -->
+                    <li class="nav-item nav-item-one">
+                        <a class="nav-link nav-link-fs" target="_blank" href="https://www.classcreator.com/Chicago-IL-Kelvyn-Park-1968/page1.htm">Check-In</a>
+                    </li>
+
+                    <!-- Classmates Dropdown -->
+                    <li class="nav-item dropdown">
+                        
+                        <a class="nav-link nav-link-fs dropdown-toggle" href="#" id="classmatesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Classmates</a>
+                        
+                        <ul class="dropdown-menu" style="border: none;" aria-labelledby="classmatesDropdown">
+
+                            <!-- Classmates -->
+                            <li><a class="ms-3 dropdown-item nav-link nav-link-fs" target="_blank" href="https://www.classcreator.com/Chicago-IL-Kelvyn-Park-1968/class_classmates.cfm">Classmates</a></li>
+
+                            <!-- In Memory -->
+                            <li><a class="ms-3 dropdown-item nav-link nav-link-fs" target="_blank" href="https://www.classcreator.com/Chicago-IL-Kelvyn-Park-1968/class_inmemory.cfm">In Memory</a></li>
+
+                            <!-- Missing -->
+                            <li><a class="ms-3 dropdown-item nav-link nav-link-fs" target="_blank" href="https://www.classcreator.com/Chicago-IL-Kelvyn-Park-1968/class_classmates_missing.cfm">Missing</a></li>
+
+                        </ul>
+
+                    </li><!-- End Classmates Dropdown -->
+
+                    <!-- Find us on Facebook -->
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-fs" target="_blank" href="https://www.facebook.com/groups/KPHS68/">Facebook</a>
+                    </li>
+
+                    <!-- 1968-2008 Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link nav-link-fs dropdown-toggle" href="#" id="yearbookDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">1968-2008</a>
+
+                        <ul class="dropdown-menu" style="border: none;" aria-labelledby="yearbookDropdown">
+
+                            <!-- Yearbook -->
+                            <li><a class="ms-3 dropdown-item nav-link nav-link-fs" href="https://kelvynpark68.com/page0/page16/page16.html">Yearbook</a></li>
+
+                            <!-- Graduation -->
+                            <li><a class="ms-3 dropdown-item nav-link nav-link-fs" href="http://kelvynpark68.com/Media/Pdf/index.html">Graduation</a></li>
+
+                            <!-- Class Pic -->
+                            <li><a class="ms-3 dropdown-item nav-link nav-link-fs" href="http://kelvynpark68.com/classpic">2008 Class Pic</a></li>
+
+                            <!-- 2008 DVD -->
+                            <li><a class="ms-3 dropdown-item nav-link nav-link-fs" href="https://kelvynpark68.com/page0/page5/page5.html">2008 DVD</a></li>
+
+                            <!-- 2008 Pictures -->
+                            <li><a class="ms-3 dropdown-item nav-link nav-link-fs" href="https://kelvynpark68.com/page0/photos/">2008 Pictures</a></li>
+
+                        </ul>
+
+                    </li>
+
+                    <!-- Gallery -->
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-fs" href="~/KPHS68Combo">Gallery</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </header> *@
+
+    <!-- Main Content (Views) -->
+    <div class="container px-0" id="MainContainer">
+        <main role="main" class="p-0">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Bottom site Footer Navbar Menu -->
+    <footer class="navbar navbar-dark border-top bg-white" role="contentinfo" aria-label="Site footer" id="footer">
+
+        <div class="container text-right">
+            <div class="row w-100 gx-0 gx-lg-5">
+
+                <!-- Check-in Column -->
+                <div class="col-4">
+                    <h6 class="navbar-text navbar-text-footer-fs text-green-darker mb-0">Info</h6>
+                    <ul class="navbar-nav ms-auto flex-nowrap ps-2">
+
+                        <!-- Check-in -->
+                        <li class="nav-item text-light">
+                            <a class="nav-link footer-fs text-nowrap " href="http://www.classcreator.com/Chicago-IL-Kelvyn-Park-1968/page1.htm">Check-In</a>
+                        </li>
+
+                        <!-- Classmates -->
+                        <li class="nav-item text-light">
+                            <a class="nav-link footer-fs text-nowrap" href="https://www.classcreator.com/Chicago-IL-Kelvyn-Park-1968/class_classmates.cfm">Classmates</a>
+                        </li>
+
+                        <!-- In Memory -->
+                        <li class="nav-item text-light">
+                            <a class="nav-link footer-fs" href="https://www.classcreator.com/Chicago-IL-Kelvyn-Park-1968/class_inmemory.cfm">In Memory</a>
+                        </li>
+
+                        <!-- Missing -->
+                        <li class="nav-item text-light">
+                            <a class="nav-link footer-fs" href="https://www.classcreator.com/Chicago-IL-Kelvyn-Park-1968/class_classmates_missing.cfm">Missing</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <!-- 1968-2008 -->
+                <div class="col-4">
+                    <h6 class="navbar-text navbar-text-footer-fs text-green-darker mb-0">1968-2008</h6>
+                    <ul class="navbar-nav ms-auto flex-nowrap ps-2">
+
+                        @*  <!-- 1968-2008 -->
+                        <li class="nav-item text-light">
+                        <a class="nav-link footer-fs" href="Pages/DVD.html" target="_blank">1968-2008</a>
+                        </li> *@
+
+                        <!-- 1968 Yearbook -->
+                        <li class="nav-item text-light">
+                            <a class="nav-link footer-fs" href="https://kelvynpark68.com/page0/page16/page16.html" target="_blank">1968 Yearbook</a>
+                        </li>
+
+                        <!-- 1968 Graduation -->
+                        <li class="nav-item text-light">
+                            <a class="nav-link footer-fs" href="http://kelvynpark68.com/Media/Pdf/index.html" target="_blank">1968 Graduation</a>
+                        </li>
+
+                        <!-- 2008 Class -->
+                        <li class="nav-item text-light">
+                            <a class="nav-link footer-fs" href="http://kelvynpark68.com/classpic" target="_blank">2008 Class Pic</a>
+                        </li>
+
+                        <!-- 2008 DVD -->
+                        <li class="nav-item text-light">
+                            <a class="nav-link footer-fs" href="https://kelvynpark68.com/page0/page5/page5.html" target="_blank">2008 DVD</a>
+                        </li>
+
+                        <!-- 2008 Pictures -->
+                        <li class="nav-item text-light">
+                            <a class="nav-link footer-fs" href="https://kelvynpark68.com/page0/photos/" target="_blank">2008 Pictures</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <!-- More -->
+                <div class="col-4 pe-0">
+                    <h6 class="navbar-text navbar-text-footer-fs text-green-darker mb-0">More</h6>
+                    <ul class="navbar-nav ms-auto flex-nowrap ps-2">
+
+                        <!-- Contact -->
+                        <li class="nav-item text-light">
+                            <a class="nav-link footer-fs" href="https://www.classcreator.com/Chicago-IL-Kelvyn-Park-1968/class_contact.cfm" target="_blank">Contact</a>
+                        </li>
+
+                        <!-- Gallery -->
+                        <li class="nav-item text-light">
+                            <a class="nav-link footer-fs" href="~/KPHS68Combo">Gallery</a>
+                        </li>
+
+                        <!-- More Links -->
+                        <li class="nav-item text-light">
+                            <a class="nav-link footer-fs" href="https://kelvynpark68.com/page2/page2.html">More Links</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="w-100 bg-gray-darker text-white pt-4">
+            <p class="text-center py-2 text-white" style="font-size: 10px;">@siteNameShort Copyright © @DateTime.Now.Year - All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Email -->
+    <script type="text/javascript">
+        (function () {
+            var _rwObsfuscatedHref0 = "mai";
+            var _rwObsfuscatedHref1 = "lto";
+            var _rwObsfuscatedHref2 = ":pa";
+            var _rwObsfuscatedHref3 = "tri";
+            var _rwObsfuscatedHref4 = "cia";
+            var _rwObsfuscatedHref5 = ".br";
+            var _rwObsfuscatedHref6 = "ide";
+            var _rwObsfuscatedHref7 = "wel";
+            var _rwObsfuscatedHref8 = "l@g";
+            var _rwObsfuscatedHref9 = "mai";
+            var _rwObsfuscatedHref10 = "l.c";
+            var _rwObsfuscatedHref11 = "om";
+            var _rwObsfuscatedHref = _rwObsfuscatedHref0 +
+                _rwObsfuscatedHref1 +
+                _rwObsfuscatedHref2 +
+                _rwObsfuscatedHref3 +
+                _rwObsfuscatedHref4 +
+                _rwObsfuscatedHref5 +
+                _rwObsfuscatedHref6 +
+                _rwObsfuscatedHref7 +
+                _rwObsfuscatedHref8 +
+                _rwObsfuscatedHref9 +
+                _rwObsfuscatedHref10 +
+                _rwObsfuscatedHref11;
+            Array.from(document.getElementsByClassName("084908D8-730C-4F75-B27B-1D611B31365A")).forEach(function (x) { x.href = _rwObsfuscatedHref });
+        })()
+    </script>
+
+    <!-- Adjust Footer -->
+    <script>
+        // Adjust the position of the footer based on actual content and footer height
+        function adjustFooterPosition() {
+            var mainContainer = document.getElementById('MainContainer');
+            var footer = document.getElementById('footer');
+
+            // Calculate the space between content, footer, and the bottom of the page
+            var spaceToBottom = window.innerHeight - mainContainer.offsetHeight - footer.offsetHeight;
+
+            // Adjust the position of the footer if the space is less than 0
+            footer.style.bottom = (spaceToBottom < 0) ? -spaceToBottom + 'px' : 'auto';
+        }
+
+        // Call the function when the page loads and when it resizes
+        window.addEventListener('load', adjustFooterPosition);
+        window.addEventListener('resize', adjustFooterPosition);
+    </script>
+
+</body>
+</html>
