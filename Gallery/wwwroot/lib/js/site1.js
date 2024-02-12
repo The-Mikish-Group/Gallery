@@ -1,6 +1,4 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-    // Display loading overlay
-    document.getElementById('loading-overlay').style.display = 'flex';
 
     // Lazy load Gallery
     var images = document.querySelectorAll("img[data-src]");
@@ -24,9 +22,7 @@
 
     var checkLoadingCompletion = function () {
         if (images && Array.from(images).every(img => img.complete)) {
-            imagesContainer.style.display = "flex";
-            // Hide loading overlay
-            document.getElementById('loading-overlay').style.display = 'none';
+            imagesContainer.style.display = "flex";            
         } else {
             setTimeout(checkLoadingCompletion, 100);
         }

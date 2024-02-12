@@ -1,5 +1,6 @@
 ﻿<!-- Shared/Index.cshtml -->
 @{
+    // Galleries Folder Name
     var galleriesFolder = "Gallery";
 
     // Current Controller
@@ -23,6 +24,7 @@
                           .Select(folder => System.IO.Path.GetFileName(folder))
                           .ToList();
 
+    // Get the backgroundImage path
     var backgroundImage = $"{galleriesFolder}/{galleryFolder}/background.webp";
     var imageExtensions = new[] { ".jpg", ".png", ".webp", ".svg" };
     foreach (var extension in imageExtensions)
@@ -41,8 +43,8 @@
 
     <!-- Menu Column -->
     <div class="col-12 text-start pt-4">
-    
-        <!-- Content Row -->
+
+        <!-- Heading Row -->
         <div class="row">
 
             <!-- Heading Column (full width) -->
@@ -73,11 +75,11 @@
                             <a id="@folder-link" class="chalk-link fs-6" asp-controller="@currentController" asp-action="Gallery" asp-route-viewName="@folder">@folder</a>
                         </dir>
                     }
-                </div>
+                </div><!-- End Folder Links -->
 
-            </div>
+            </div><!-- End Gallery Links -->
 
-        </div>
+        </div><!-- End Heading Row -->
 
         <br />
         <br />
@@ -86,14 +88,16 @@
         <br />
         <br />
 
-    </div>
-
-    <div id="groove"></div>  
-</div>
+    </div><!-- End Menu Column -->
+   
+    <div id="groove"></div> 
+    
+</div><!-- End View Container Row -->
 
 <div id="chalk"></div>
 <div id="eraser"></div>
 
+<!-- Toggle the Current Menu Button to indicate it is selected -->
 <script>
 
     var mainElement = document.getElementById("@imagefolder");

@@ -36,7 +36,6 @@
   <ItemGroup>
     <Content Remove="Views\Home\Indexxx.cshtml" />
     <Content Remove="Views\Home\Indexxxxx.cshtml" />
-    <Content Remove="wwwroot\lib\js\javascript.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -69,7 +68,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\lib\js\javascript.js" />
     <None Include="wwwroot\lib\svg\Buttons\Back-Black.svg" />
     <None Include="wwwroot\lib\svg\Buttons\Back-White.svg" />
     <None Include="wwwroot\lib\svg\Buttons\backspace.svg" />

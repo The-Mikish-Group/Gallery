@@ -3,41 +3,61 @@
 @using SixLabors.ImageSharp;
 @using System.Linq;
 
-<!-- Shared Gallery.cshtml -->
-@{
-    Layout = "_Layout";
-}
-
+<!-- Shared/Gallery.cshtml -->
 @{
     // Galleries Folder Name
-    string galleriesFolder = "Gallery";
+    string galleriesFolder = "Gallery";  
 
-    // Function to get image dimensions
-    Size GetImageDimensions(string imagePath)
+    // Current Controller
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "Shared";
+
+    // Image Folder
+    var imagefolder = ViewData["ViewName"]?.ToString() ?? ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+
+
+    // galleryFolder
+    var galleryFolder = currentController.Replace("slide", "", StringComparison.OrdinalIgnoreCase)
+                                         .Replace("combo", "", StringComparison.OrdinalIgnoreCase);
+
+    // Gallery type
+    var galleryType = currentController.Contains("slide", StringComparison.OrdinalIgnoreCase)
+        ? "Slideshows"
+        : "Galleries";
+    galleryType ??= "Galleries"; // Set default if null
+
+    galleryType = currentController.Contains("combo", StringComparison.OrdinalIgnoreCase)
+        ? "Combos"
+        : galleryType;
+    galleryType ??= "Galleries"; // Set default if null
+
+    var x = galleryType;
+
+    // folders
+    var foldersPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/{galleriesFolder}/{galleryFolder}");
+    var folders = Directory.GetDirectories(foldersPath)
+                          .Where(folder => !System.IO.Path.GetFileName(folder).StartsWith("_"))
+                          .Select(folder => System.IO.Path.GetFileName(folder))
+                          .ToList();
+
+    // Get the backgroundImage path
+    var backgroundImage = $"{galleriesFolder}/{galleryFolder}/background.webp";
+    var imageExtensions = new[] { ".jpg", ".png", ".webp", ".svg" };
+    foreach (var extension in imageExtensions)
     {
-        using (var image = Image.Load(imagePath))
+        var imagePath = $"{galleriesFolder}/{galleryFolder}/background{extension}";
+        if (System.IO.File.Exists(System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", imagePath)))
         {
-            return new Size(image.Width, image.Height);
+            backgroundImage = imagePath;
+            break;
         }
     }
 
-    // Get the folders for the menu links
-    var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "Shared";
-    var galleryFolder = currentController
-    .Replace("slide", "", StringComparison.OrdinalIgnoreCase)
-    .Replace("combo", "", StringComparison.OrdinalIgnoreCase);
-
-    var folders = Directory.GetDirectories(System.IO.Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/{galleriesFolder}/{galleryFolder}"))
-    .Where(folder => !System.IO.Path.GetFileName(folder).StartsWith("_"))
-    .Select(folder => System.IO.Path.GetFileName(folder))
-    .ToList();
+    // The current Image folder
+    var targetImageFolder = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", galleriesFolder, galleryFolder, imagefolder);
+  
 
     // Get the Gallery files for display
-    var imagefolder = ViewData["ViewName"]?.ToString() ?? ViewContext.RouteData.Values["action"]?.ToString() ?? "";
-    var currentImageFolder = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", galleriesFolder, galleryFolder, imagefolder);
-
-    // Get the Gallery files for display
-    var files = Directory.GetFiles(currentImageFolder, "*.*")
+    var files = Directory.GetFiles(targetImageFolder, "*.*")
     .Where(file =>
         !System.IO.Path.GetFileName(file).StartsWith("background", StringComparison.OrdinalIgnoreCase) &&
         !System.IO.Path.GetFileName(file).EndsWith("_thumb.jpg", StringComparison.OrdinalIgnoreCase) &&
@@ -66,39 +86,18 @@
     foreach (var file in files)
     {
         var filename = System.IO.Path.Combine(System.IO.Path.GetFileNameWithoutExtension(file)) + "_thumb.jpg";
-        thumbnailService.CreateOrRetrieveThumbnail(file, filename, currentImageFolder, thumbnailWidth, thumbnailHeight);
-    }
+        thumbnailService.CreateOrRetrieveThumbnail(file, filename, targetImageFolder, thumbnailWidth, thumbnailHeight);
+    }    
 
-    // Get the backgroundImage path
-    string backgroundImage = $"{galleriesFolder}/{galleryFolder}/{imagefolder}/background.webp"; // default
-    string[] extensions = { ".jpg", ".png", ".webp", ".svg", };
-    foreach (var extension in extensions)
+    <!-- Function to get image dimensions -->
+    Size GetImageDimensions(string imagePath)
     {
-        var bgPath = $"{galleriesFolder}/{galleryFolder}/{imagefolder}/background{extension}";
-        if (System.IO.File.Exists(System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", bgPath)))
+        using (var image = Image.Load(imagePath))
         {
-            backgroundImage = bgPath;
-            break;
+            return new Size(image.Width, image.Height);
         }
     }
-
-    // Gallery type (used in html heading display)
-    var galleryType = currentController.Contains("slide", StringComparison.OrdinalIgnoreCase)
-        ? "Slideshows"
-        : "Galleries";
-    galleryType ??= "Galleries"; // Set default if null
-
-    // Gallery type (used in html heading display)
-    galleryType = currentController.Contains("combo", StringComparison.OrdinalIgnoreCase)
-        ? "Combos"
-        : galleryType;
-    galleryType ??= "Galleries"; // Set default if null
-
-    // Target View (Everything currently targets Gallery)
-    var targetView = currentController.Contains("slide", StringComparison.OrdinalIgnoreCase)
-        ? "Gallery" // send someplace else like Slideshow.cshtml
-        : "Gallery";
-    targetView ??= "Gallery"; // Set default if null
+    
 }
 
 <!-- Function to create a thumbnail -->
@@ -152,25 +151,30 @@
     }
 }
 
-<!-- Loading Overlay... -->
-<div id="loading-overlay">
-    <div class="loading-spinner"></div>
-</div>
-
 <!-- Go to Top button -->
 <button type="button" onclick="topFunction()" id="top-button" title="Go to top">Top</button>
 
 <!-- Stores current image link in Slide -->
-<input title="ImageLink" hidden type="text" spellcheck="false" value="" id="imageLink">
+<input class="p-0 m-0" title="ImageLink" hidden type="text" spellcheck="false" value="" id="imageLink">
 
 <!-- View Container Row -->
-<div class="row my-5 viewContainer">
+<div class="row viewContainer pb-4">
 
     <!-- Menu Column -->
     <div class="col-12 text-start pt-4">
 
         <!-- Heading Row -->
         <div class="row">
+
+            <!-- Heading Column (full width) -->
+            <div class="col-12 text-center">
+                <h2 class="text-white"></h2>
+
+                <br />
+                <br />
+                <br />
+
+            </div>
 
             <!-- Back Link Button -->
             <div class="col-2 text-end my-0 mx-auto">
@@ -190,14 +194,14 @@
                             <a id="@folder-link" class="chalk-link fs-6" asp-controller="@currentController" asp-action="Gallery" asp-route-viewName="@folder">@folder</a>
                         </dir>
                     }
-                </div>
+                </div><!-- End Folder Links -->
 
-            </div>
+            </div><!-- End Gallery Links -->
 
         </div>
 
-    </div>    
-        
+    </div><!-- End Menu Column -->
+
     <!-- Content Column -->
     <div class="col-12 text-start pt-4">
 
@@ -265,44 +269,49 @@
             </div><!-- End Slideshow -->
         }
 
-        <!-- Display Gallery -->
+        <!-- Display Gallery ? -->
         @if (galleryType == "Galleries" || galleryType == "Combos")
         {
 
             <!-- The Gallery -->
-            <div id="images-container" class="row g-2 g-sm-2 g-lg-2 bg-transparent" style="display: none">
+            <div id="images-container" class="row g-2 g-sm-2 g-lg-2 bg-transparent" style="display: flex">
 
                 <!-- Display each Image file and filename -->
                 @foreach (var file in files)
                 {
+                    <!-- Image Column -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3 mb-3">
 
-                        <!-- Link to file -->
+                        <!-- Image Link -->
                         <a title="Click for full-screen." class="menu-link d-block text-center bg-gray-light" href="@Url.Content(file)" target="_blank">
 
-                            <!-- file_thumb -->
+                            <!-- Image thumb (display thumb instead of origional picture) -->
                             <img class="w-100 img-fluid mx-auto" data-src="@Url.Content(System.IO.Path.Combine("/", galleriesFolder, galleryFolder, imagefolder, System.IO.Path.GetFileNameWithoutExtension(file) + "_thumb.jpg").Replace("\\", "/"))" alt="_Click Me_" />
 
-                            <!-- file name (max of 30 characters shown) -->
+                            <!-- Truncated Image name (max of 30 characters shown) -->
                             <div class="text-black text-center pt-1">
                                 @System.IO.Path.GetFileNameWithoutExtension(file).Substring(0, Math.Min(30, System.IO.Path.GetFileNameWithoutExtension(file).Length))
                             </div>
-                        </a>
-                    </div>
+
+                        </a><!-- End Image Link -->
+
+                    </div><!-- End Image Column -->
                 }
-            </div>
+            </div><!-- End of the Gallery -->
         }
 
     </div><!-- End Content Column -->
 
-    <div id="groove"></div>
+    <div id="groove-gallery"></div>
 
-</div>
+</div><!-- End View Container Row -->
 
 <div id="chalk"></div>
 <div id="eraser"></div>
-@* <div id="ruler"></div>
- *@
+
+<br />
+<br />
+
 <!-- Toggle the Current Menu Button to indicate it is selected -->
 <script>
 
@@ -350,13 +359,17 @@
 
         // Function to find the actual image link with the right extension
         function findActualImageLink(baseLink, extensions) {
+
             for (var i = 0; i < extensions.length; i++) {
                 var potentialLink = baseLink.replace('_thumb.jpg', '.' + extensions[i]);
+
                 // Check if the potential link exists, and return it if found
                 if (doesFileExist(potentialLink)) {
                     return potentialLink;
                 }
+
             }
+
             // If none of the extensions is found, return the original base link
             return baseLink;
         }
